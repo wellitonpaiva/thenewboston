@@ -21,6 +21,6 @@ internal class BankServiceTest {
     internal fun `should call its datasource to find bank`() {
         val accountNumber = "1234"
         bankService.getBank(accountNumber)
-        verify(exactly = 1) { dataSource.findBank(accountNumber) }
+        verify(exactly = 1) { dataSource.retrieveBank(accountNumber) }
     }
 }
