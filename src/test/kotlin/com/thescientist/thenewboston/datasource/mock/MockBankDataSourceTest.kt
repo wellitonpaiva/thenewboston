@@ -27,4 +27,30 @@ internal class MockBankDataSourceTest {
     internal fun `should throw exception when bank not exists`() {
         assertThrows<NoSuchElementException> { mockDataSource.retrieveBank("1") }
     }
+
+    @Test
+    internal fun `should add a new bank`() {
+        val bank = Bank("2345", 1.0, 1)
+        mockDataSource.createBank(bank)
+        assertThat(mockDataSource.banks.size).isEqualTo(4)
+    }
+
+    @Test
+    internal fun `should throw exception when bank already exists`() {
+        val bank = Bank("1234", 1.0, 1)
+        assertThrows<IllegalArgumentException> { mockDataSource.createBank(bank) }
+    }
+
+    @Test
+    internal fun `should update an existing bank`() {
+        val bank = Bank("1234", 1.0, 1)
+        mockDataSource.updateBank(bank)
+        assertThat(mockDataSource.retrieveBank(bank.accountNumber)).isEqualTo(bank)
+    }
+
+    @Test
+    internal fun `should throw exception when update a not existing bank`() {
+        val notExistingBank = Bank("444", 1.0, 1)
+        assertThrows<NoSuchElementException> { mockDataSource.updateBank(notExistingBank) }
+    }
 }
