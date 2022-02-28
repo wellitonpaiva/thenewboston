@@ -53,4 +53,19 @@ internal class MockBankDataSourceTest {
         val notExistingBank = Bank("444", 1.0, 1)
         assertThrows<NoSuchElementException> { mockDataSource.updateBank(notExistingBank) }
     }
+
+    @Test
+    internal fun `should remove an existing bank`() {
+        val accountNumber = "1234"
+        mockDataSource.deleteBank(accountNumber)
+        assertThrows<NoSuchElementException> { mockDataSource.retrieveBank(accountNumber) }
+    }
+
+    @Test
+    internal fun `should throw exception when delete a not existing bank`() {
+        val notExistingAccountNumber = "113"
+        assertThrows<NoSuchElementException> { mockDataSource.deleteBank(notExistingAccountNumber) }
+    }
+
+
 }

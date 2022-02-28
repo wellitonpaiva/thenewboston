@@ -31,4 +31,6 @@ class MockBankDataSource : BankDataSource {
         banks.remove(retrieveBank(bank.accountNumber))
         return createBank(bank)
     }
+
+    override fun deleteBank(accountNumber: String) = banks.remove(retrieveBank(accountNumber))
 }
